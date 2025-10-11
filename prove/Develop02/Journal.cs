@@ -51,7 +51,7 @@ public class Journal
                 }
             }
 
-            Console.WriteLine($"Succesfully loaded {_entries.Count} entries from {filename}")
+            Console.WriteLine($"Succesfully loaded {_entries.Count} entries from {filename}");
         }
 
         else
