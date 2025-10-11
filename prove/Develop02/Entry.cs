@@ -16,7 +16,7 @@ public class Entry
     };
 
     
-    public string Prompt()
+    public void Prompt()
     {
         // Create random object
         Random random = new Random();
@@ -25,12 +25,11 @@ public class Entry
         int index = random.Next(_prompts.Count);
 
         // Get random string
-        string randomPrompt = _prompts[index];
+        _prompt = _prompts[index];
+        Console.WriteLine(_prompt);
 
-        Console.WriteLine(randomPrompt);
-        string userResponse = Console.ReadLine();
-
-        return userResponse;
+        _response = Console.ReadLine();
+        _date = DateTime.Now.ToShortDateString();
     }
 }
 

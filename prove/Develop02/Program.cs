@@ -32,11 +32,13 @@ class Program
             else if (choice == "3")
             {
                 // Load saved entries from file
+                myJournal.Load();
             }
 
             else if (choice == "4")
             {
                 // save entries to file
+                myJournal.Save();
             }
 
             else if (choice == "5")
