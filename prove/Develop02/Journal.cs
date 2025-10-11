@@ -77,7 +77,7 @@ public class Journal
             }
         }
 
-        Console.WriteLine($"Entries saved to {filename} succesfully");
+        Console.WriteLine($"{_entries.Count} Entries were saved to {filename} succesfully");
     }
 };
 
