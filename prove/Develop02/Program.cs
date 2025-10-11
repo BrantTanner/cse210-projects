@@ -4,26 +4,50 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop02 World!");
+        Journal myJournal = new Journal();
+        bool running = true;
 
-        School school1 = new School();
-        school1._name = "BYU-I";
-        school1._numStudents = 32000;
-        school1._numTeachers = 500;
+        while (running)
+        {
+            Console.WriteLine("\n1. Write a new entry");
+            Console.WriteLine("2. Display all entries");
+            Console.WriteLine("3. Load entries from file");
+            Console.WriteLine("4. Save entries to file");
+            Console.WriteLine("5. Quit");
+            string choice = Console.ReadLine();
 
-        Student student1 = new Student();
-        student1._name = "Bill Alexander";
+            if (choice == "1")
+            {
+                Entry entry = new Entry();
+                entry.Prompt(); // Ask random prompt and store response
+                myJournal.newEntry(entry); // save it to journal
+                Console.WriteLine("Entry added!");
+            }
 
-        school1._students = new List<Student>();
-        school1._students.Add(student1);
+            else if (choice == "2")
+            {
+                myJournal.DisplayEntries();
+            }
 
-        school1.ShowDetails();
+            else if (choice == "3")
+            {
+                // Load saved entries from file
+            }
 
-        School school2 = new School();
-        school1._name = "BYU Provo";
-        school1._numStudents = 50000;
-        school1._numTeachers = 1000;
+            else if (choice == "4")
+            {
+                // save entries to file
+            }
 
-        school2.ShowDetails();
+            else if (choice == "5")
+            {
+                running = false;
+            }
+
+            else
+            {
+                Console.WriteLine("Invalid option. Try again.");
+            }
+        }
     }
 }
