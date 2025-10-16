@@ -8,7 +8,7 @@ public class Journal
     public List<Entry> _entries = new List<Entry>();
 
 
-    public void newEntry(Entry entry)
+    public void NewEntry(Entry entry)
     {
 
         _entries.Add(entry);
