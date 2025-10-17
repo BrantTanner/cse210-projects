@@ -19,5 +19,8 @@ class Program
         Resume resume1 = new Resume();
         resume1.AddJob(job1);
         resume1.AddJob(job2);
+
+        Fraction f = new Fraction(5, 0);
+        f.Display();
     }
 }
