@@ -1,17 +1,33 @@
 public class Fraction
 {
-    private int numerator;
+    private int _numerator;
 
-    private int denominator;
+    private int _denominator;
 
+    public Fraction(int num)
+    {
+        _numerator = num;
+        _denominator = 1;
+    }
     public Fraction(int num, int den)
     {
         _numerator = num;
-        _denominator = den;
+        if (den != 0)
+        {
+            _denominator = den;
+        }
+        else
+        {
+            
+        }
+
+           
+           
     }
 
     public void Display()
     {
         // do something
+        Console.WriteLine(_numerator / _denominator);
     }
 }
