@@ -20,7 +20,7 @@ class Program
             {
                 Entry entry = new Entry();
                 entry.Prompt(); // Ask random prompt and store response
-                myJournal.newEntry(entry); // save it to journal
+                // myJournal.newEntry(entry); // save it to journal
                 Console.WriteLine("Entry added!");
             }
 
