@@ -4,23 +4,33 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Console.WriteLine("Hello Develop03 World!");
+        bool running = true;
+        string scriptureStr = "Trust in the Lord with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.";
+        string referenceStr = "Proverbs 3:5-6";
 
-        Job job1 = new Job();
-        job1._company = "BYU-I";
-        job1._title = "Programmer";
-        job1._startDate = "1/1/2010";
 
-        Job job2 = new Job();
-        job2._company = "BYU provo";
-        job2._title = "Programmer";
-        job2._startDate = "1/1/2015";
+        string[] scriptureList = scriptureStr.Split();
 
-        Resume resume1 = new Resume();
-        resume1.AddJob(job1);
-        resume1.AddJob(job2);
+        Scripture scripture = new Scripture(scriptureList, referenceStr);
+        
 
-        Fraction f = new Fraction(5, 0);
-        f.Display();
+        while (running)
+        {
+            
+
+            scripture.Display();
+            Console.WriteLine();
+            Console.WriteLine("Press enter to continue or type 'quit' to finish: ");
+            string userChoice = Console.ReadLine();
+
+            running = scripture.ChooseWordsToHide();
+            if (userChoice == "quit")
+            {
+                running = false;
+            }
+            Console.Clear();
+
+        }
+
     }
 }
