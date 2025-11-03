@@ -37,7 +37,10 @@ public class Scripture
     // Methods
     public void Display()
     {
-        // Display Scripture?
+        // Display Reference
+        Console.Write(_reference.GetReference() + " ");
+        
+        // Display Scripture
         foreach(Word word in _scripture)
         {
             word.Display();

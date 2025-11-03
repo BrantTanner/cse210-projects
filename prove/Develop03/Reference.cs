@@ -28,5 +28,9 @@ public class Reference
 
         return reference;
     }
+    // public void Display(reference)
+    // {
+    //     Console.Write(reference);
+    // } 
 }
    
