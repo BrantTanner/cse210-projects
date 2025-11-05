@@ -7,12 +7,17 @@ public class OffRoad : Vehicle
 
     public OffRoad(bool offRoadTires, string offRoadSuspension, string make, string model, int year) : base(make, model, year)
     {
-        offRoadTires = _offRoadTires;
-        offRoadSuspension = _offRoadSuspension;
+        _offRoadTires = offRoadTires;
+        _offRoadSuspension = offRoadSuspension;
     }
 
     public void GetOffRoadDescription()
     {
-        Console.WriteLine($"with {_offRoadTires} and {_offRoadSuspension} suspension");
+        if (_offRoadTires == true)
+             Console.Write($"with offroad tires and  {_offRoadSuspension} suspension");
+        else
+        {
+             Console.Write($"with {_offRoadSuspension} suspension");
+        }
     }
 }

@@ -6,13 +6,13 @@ public class Vehicle
 
     public Vehicle(string make, string model, int year)
     {
-        make = _make;
-        model = _model;
-        year = _year;
+        _make = make;
+        _model = model;
+        _year = year;
     } 
     
     public void GetBaseDescription()
     {
-        Console.WriteLine($"This vehicle is a {_year} {_make} {_model}");
+        Console.WriteLine($"This vehicle is a {_year} {_make} {_model} ");
     }
 }
