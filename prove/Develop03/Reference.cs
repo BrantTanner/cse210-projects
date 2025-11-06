@@ -15,6 +15,14 @@ public class Reference
         _lverse = lverse;
     }
 
+    public Reference(string book, int chapter, int fverse)
+    {
+        _book = book;
+        _chatper = chapter;
+        _fverse = fverse;
+        _lverse = fverse;
+    }
+
     // Methods
     public string GetReference()
     {
@@ -28,9 +36,5 @@ public class Reference
 
         return reference;
     }
-    // public void Display(reference)
-    // {
-    //     Console.Write(reference);
-    // } 
 }
    

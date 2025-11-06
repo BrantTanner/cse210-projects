@@ -12,11 +12,11 @@ class Program
         string[] scriptureList = scriptureStr.Split();
 
         Scripture scripture = new Scripture(scriptureList, referenceStr);
-        
+
 
         while (running)
         {
-            
+
 
             scripture.Display();
             Console.WriteLine();
