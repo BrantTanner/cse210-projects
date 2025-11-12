@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 public class Breathing : Activity
 {
 
-    public Breathing(string activityName, string activityDescription, int durationSecs) : base(activityName, activityDescription, durationSecs)
+    public Breathing(string activityName, string activityDescription) : base(activityName, activityDescription)
     {
         
     }

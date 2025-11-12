@@ -2,7 +2,7 @@ public class Listing : Activity
 {
     private List<string> _listingPrompts;
 
-    public Listing(string activityName, string activityDescription, int durationSecs, List<string> listingPrompts) : base(activityName, activityDescription, durationSecs)
+    public Listing(string activityName, string activityDescription, List<string> listingPrompts) : base(activityName, activityDescription)
     {
         _listingPrompts = listingPrompts;
     }

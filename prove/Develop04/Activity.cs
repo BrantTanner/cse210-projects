@@ -2,14 +2,13 @@ public class Activity
 {
     protected string _activityName;
     protected string _activityDescription;
-    protected int _durationSecs;
+    protected int _durationSecs = 0;
     protected Animation _animation;
 
-    public Activity(string activityName, string activityDescription, int durationSecs)
+    public Activity(string activityName, string activityDescription)
     {
         _activityName = activityName;
         _activityDescription = activityDescription;
-        _durationSecs = durationSecs;
         _animation = new Animation();
 
     }

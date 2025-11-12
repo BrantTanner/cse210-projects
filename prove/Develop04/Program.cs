@@ -6,7 +6,7 @@ class Program
 {
     static void Main(string[] args)
     {   // Breathing Activity 
-        Breathing breathingActivity = new Breathing("Breathing Activity", "This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.", 0);
+        Breathing breathingActivity = new Breathing("Breathing Activity", "This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.");
 
         
 
@@ -32,7 +32,7 @@ class Program
             "How can you keep this experience in mind in the future?",
         };
 
-        Reflection reflectingActivity = new Reflection("Reflection Activity", "This Activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.", 0, prompts, questions);
+        Reflection reflectingActivity = new Reflection("Reflection Activity", "This Activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.", prompts, questions);
 
         //Listing Activity
         List<string> listingPrompts = new List<string>
@@ -44,7 +44,7 @@ class Program
             " --- Who are some of your personal heroes? --- "
         };
 
-        Listing listingActivity = new Listing("Listing Activity", "This Activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.", 0, listingPrompts);
+        Listing listingActivity = new Listing("Listing Activity", "This Activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.", listingPrompts);
 
         while (true)
         {
