@@ -1,13 +1,21 @@
 using System;
-
 class Program
 {
     static void Main(string[] args)
     {
-        Vehicle vehicle1 = new Vehicle("Honda", "Civic", 2014);
-        vehicle1.GetBaseDescription();
 
-        Motorcycle jimmy = new Motorcycle("seat", "2-stroke", false, "Harley", "Davison", 1999)
-        jimmy.GetDescription();
+        Square square = new Square("pink", 5);
+        Rectangle rectangle = new Rectangle("Red", 10, 5);
+        Circle circle = new Circle("Blue", 13);
+
+        List<Shape> shapes =  new List<Shape>();
+        shapes.Add(square);
+        shapes.Add(rectangle);
+        shapes.Add(circle);
+
+        foreach (Shape shape in shapes){
+            Console.WriteLine($"The color of the {shape} is {shape.GetColor()}");
+            Console.WriteLine($"The area of the {shape} is {shape.GetArea()}");
+        }
     }
 }
