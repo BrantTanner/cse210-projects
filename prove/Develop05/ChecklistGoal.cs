@@ -4,7 +4,8 @@ class ChecklistGoal : Goal
     private int _desiredGoalCount;
     private int _bonusPoints;
 
-    public ChecklistGoal(string goalType): base(goalType)
+    // constructors for create checklist goal and saving it with extra parts
+    public ChecklistGoal(): base("checklist")
     {
         _completionCounter = 0;
 
@@ -15,13 +16,28 @@ class ChecklistGoal : Goal
         _bonusPoints = int.Parse(Console.ReadLine());
     }
 
-    public ChecklistGoal(string csvLine) : base(csvLine)
+    public ChecklistGoal(string csvLine) : base(csvLine, true)
     {
         var parts = csvLine.Split('|');
-        _completionCounter = int.Parse(parts[4]);
-        _desiredGoalCount = int.Parse(parts[5]);
+
+        _completionCounter = int.Parse(parts[6]);
+        _desiredGoalCount = int.Parse(parts[7]);
+        _bonusPoints = int.Parse(parts[8]);
     }
 
+    // Getter to display remaing attempts for checklist goals
+    public int GetRemainingGoals()
+    {
+        return  _desiredGoalCount - _completionCounter;
+    }
+
+    public override string ToCSV()
+    {
+        // Include base fields then subclass fields
+        return base.ToCSV() + $"|{_completionCounter}|{_desiredGoalCount}|{_bonusPoints}";
+    }
+
+    // Overridden method for completing goals
     public override void CompleteGoal()
     {
         if (!_complete)

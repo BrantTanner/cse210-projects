@@ -1,15 +1,16 @@
 class EternalGoal : Goal
 {
     private int _completionCounter;
-    public EternalGoal(string goalType): base(goalType)
+    public EternalGoal(): base("eternal")
     {
         _completionCounter = 0;
     }
-    public EternalGoal(string cvsLine) : base(cvsLine)
+    public EternalGoal(string cvsLine) : base(cvsLine, true)
     {
         _complete = false;
     }
 
+    // overridden method for completing goals
     public override void CompleteGoal()
     {
         _completionCounter ++;
