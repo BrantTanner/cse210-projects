@@ -141,22 +141,40 @@ class Program
                         uncompletedGoals.Add(goal);
                     }
                 }
-
-                Console.WriteLine("Here is a list of your uncompleted goals");
-                int numberedlist = 1;
-
-                foreach (var goal in uncompletedGoals)
+            
+                if (uncompletedGoals.Count== 0)
                 {
-                    Console.Write($"{numberedlist}. ");
-                    numberedlist++;
-                    
-                    goal.DisplayGoal();
+                    Console.WriteLine("You have no uncompleted goals...");
                 }
-                Console.WriteLine("Enter the number of what goal you completed: ");
-                int userInputtedGoal = int.Parse(Console.ReadLine());
-                int index = userInputtedGoal - 1;
-                Goal completedGoal = uncompletedGoals[index];
-                completedGoal.CompleteGoal();
+
+                else
+                {
+                    Console.WriteLine("Here is a list of your uncompleted goals");
+                    int numberedlist = 1;
+
+                    foreach (var goal in uncompletedGoals)
+                    {
+                        Console.Write($"{numberedlist}. ");
+                        numberedlist++;
+                        
+                        goal.DisplayGoal();
+                    }
+                    Console.WriteLine("Enter the number of what goal you completed: ");
+                    int userInputtedGoal = int.Parse(Console.ReadLine());
+                    int index = userInputtedGoal - 1;
+                    if (index < 0 || index >= uncompletedGoals.Count)
+                    {
+                        Console.WriteLine("Please enter number of a valid goal...");
+                    }
+                    else
+                    {
+                        Goal completedGoal = uncompletedGoals[index];
+                        completedGoal.CompleteGoal();
+                    }
+                    
+                }
+                
+
             }
             else if (usrChoice == 6)
             {
