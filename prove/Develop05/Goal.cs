@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+
 abstract class  Goal
 {
     protected string _goalType;
@@ -5,16 +7,8 @@ abstract class  Goal
     protected string _goalName;
     protected string _goalDescription;
     protected int _goalPoints;
-    protected int _pointsLevel;
     protected bool _complete;
 
-    // Display only versions of member variables for menu
-    public string GoalName => _goalName;
-    public string GoalDescription => _goalDescription;
-    public int GoalPoints => _goalPoints;
-    public bool Complete => _complete;
-    public string GoalType => _goalType;
-    public int TotalPoints => _totalPoints;
 
     // Constructors for creating goal and saving them
     public Goal(string goalType)
@@ -34,6 +28,15 @@ abstract class  Goal
         _complete = false;
     }
 
+    public bool GetComplete()
+    {
+        return _complete;
+    }
+
+    public int GetTotalPoints()
+    {
+        return _totalPoints;
+    }
      public Goal(string csvLine, bool fromCSV)
     {
         var parts = csvLine.Split('|');

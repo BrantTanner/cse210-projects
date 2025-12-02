@@ -12,7 +12,7 @@ class ChecklistGoal : Goal
         Console.WriteLine("How many times do you wish to complete this goal?: ");
         _desiredGoalCount = int.Parse(Console.ReadLine());
 
-        Console.WriteLine($"How many bonus points is this worth about completing {_desiredGoalCount} times?: ");
+        Console.WriteLine($"How many bonus points is this worth by completing {_desiredGoalCount} times?: ");
         _bonusPoints = int.Parse(Console.ReadLine());
     }
 

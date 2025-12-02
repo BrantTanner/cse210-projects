@@ -69,32 +69,8 @@ class Program
 
                     goal.DisplayGoal();
 
-                    // if(goal is EternalGoal)
-                    // {
-                    //     Console.Write
-                    // }
-                    // else if(goal.Complete == true)
-                    // {
-                    //     checkbox = "[X]";
-                    // }
-                    // else
-                    // {
-                    //     checkbox = "[ ]";
-                    // }
-                    // if(goal is ChecklistGoal checklist)
-                    // {
-                    //     Console.WriteLine($"{checkbox} {numberedlist}. {goal.GoalName} - {goal.GoalDescription} ({checklist.GetRemainingGoals()})");
-                    //     numberedlist ++;
-                    //     continue;
-                    // }
-                    // else
-                    // {
-                        
-                    //     Console.WriteLine($"{checkbox} {numberedlist}. {goal.GoalName} - {goal.GoalDescription}");
-                    //     numberedlist ++;
-                    // }     
                 }
-                int overallTotal = goals.Sum(g => g.TotalPoints);
+                int overallTotal = goals.Sum(g => g.GetTotalPoints());
                 int overallLevel = overallTotal / 1000;
                 Console.WriteLine($"Total Points: {overallTotal}");
                 Console.WriteLine($"Your Level: {overallLevel}");
@@ -147,7 +123,7 @@ class Program
                     numberedlist++;
 
                     goal.DisplayGoal();
-                int overallTotal = goals.Sum(g => g.TotalPoints);
+                int overallTotal = goals.Sum(g => g.GetTotalPoints());
                 int overallLevel = overallTotal / 1000;
                 Console.WriteLine($"Total Points: {overallTotal}");
                 Console.WriteLine($"Your Level: {overallLevel}");
@@ -160,7 +136,7 @@ class Program
                 uncompletedGoals.Clear();
                 foreach(var goal in goals)
                 {
-                    if (goal.Complete == false)
+                    if (goal.GetComplete() == false)
                     {
                         uncompletedGoals.Add(goal);
                     }
