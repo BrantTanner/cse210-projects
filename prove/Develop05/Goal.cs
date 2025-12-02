@@ -53,4 +53,6 @@ abstract class  Goal
     }
     public abstract void CompleteGoal();
 
+   public abstract void DisplayGoal();
+
 };

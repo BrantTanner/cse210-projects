@@ -62,33 +62,37 @@ class Program
                 // List Goals and Total Points
                 Console.WriteLine("Your goals: ");
                 int numberedlist = 1;
-                string checkbox;
 
                 foreach (var goal in goals){
-                    if(goal is EternalGoal)
-                    {
-                        checkbox = "[-]";
-                    }
-                    else if(goal.Complete == true)
-                    {
-                        checkbox = "[X]";
-                    }
-                    else
-                    {
-                        checkbox = "[ ]";
-                    }
-                    if(goal is ChecklistGoal checklist)
-                    {
-                        Console.WriteLine($"{checkbox} {numberedlist}. {goal.GoalName} - {goal.GoalDescription} ({checklist.GetRemainingGoals()})");
-                        numberedlist ++;
-                        continue;
-                    }
-                    else
-                    {
+                    Console.Write($"{numberedlist}. ");
+                    numberedlist++;
+
+                    goal.DisplayGoal();
+
+                    // if(goal is EternalGoal)
+                    // {
+                    //     Console.Write
+                    // }
+                    // else if(goal.Complete == true)
+                    // {
+                    //     checkbox = "[X]";
+                    // }
+                    // else
+                    // {
+                    //     checkbox = "[ ]";
+                    // }
+                    // if(goal is ChecklistGoal checklist)
+                    // {
+                    //     Console.WriteLine($"{checkbox} {numberedlist}. {goal.GoalName} - {goal.GoalDescription} ({checklist.GetRemainingGoals()})");
+                    //     numberedlist ++;
+                    //     continue;
+                    // }
+                    // else
+                    // {
                         
-                        Console.WriteLine($"{checkbox} {numberedlist}. {goal.GoalName} - {goal.GoalDescription}");
-                        numberedlist ++;
-                    }     
+                    //     Console.WriteLine($"{checkbox} {numberedlist}. {goal.GoalName} - {goal.GoalDescription}");
+                    //     numberedlist ++;
+                    // }     
                 }
                 int overallTotal = goals.Sum(g => g.TotalPoints);
                 int overallLevel = overallTotal / 1000;
@@ -137,31 +141,12 @@ class Program
                 // Display goals after they are loaded from file
                 Console.WriteLine("Your goals: ");
                 int numberedlist = 1;
-                string checkbox;
+        
                 foreach (var goal in goals){
-                    if(goal is EternalGoal)
-                    {
-                        checkbox = "[-]";
-                    }
-                    else if(goal.Complete == true)
-                    {
-                        checkbox = "[X]";
-                    }
-                    else
-                    {
-                        checkbox = "[ ]";
-                    }
-                    if(goal is ChecklistGoal checklist)
-                    {
-                        
-                        Console.WriteLine($"{checkbox} {numberedlist}. {goal.GoalName} - {goal.GoalDescription} ({checklist.GetRemainingGoals()})");
-                        numberedlist ++;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{checkbox} {numberedlist}. {goal.GoalName} - {goal.GoalDescription}");
-                        numberedlist ++;
-                    } 
+                    Console.Write($"{numberedlist}. ");
+                    numberedlist++;
+
+                    goal.DisplayGoal();
                 int overallTotal = goals.Sum(g => g.TotalPoints);
                 int overallLevel = overallTotal / 1000;
                 Console.WriteLine($"Total Points: {overallTotal}");
@@ -186,8 +171,10 @@ class Program
 
                 foreach (var goal in uncompletedGoals)
                 {
-                    Console.WriteLine($"[ ] {numberedlist}. {goal.GoalName} - {goal.GoalDescription}");
-                    numberedlist ++;
+                    Console.Write($"{numberedlist}. ");
+                    numberedlist++;
+                    
+                    goal.DisplayGoal();
                 }
                 Console.WriteLine("Enter the number of what goal you completed: ");
                 int userInputtedGoal = int.Parse(Console.ReadLine());

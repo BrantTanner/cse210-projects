@@ -1,9 +1,12 @@
 using System;
+using System.Windows.Forms;
 
-class Program
+internal static class Program
 {
-    static void Main(string[] args)
+    [STAThread]
+    static void Main()
     {
-        Console.WriteLine("Hello FinalProject World!");
+        ApplicationConfiguration.Initialize();
+        Application.Run(new Form1());
     }
 }

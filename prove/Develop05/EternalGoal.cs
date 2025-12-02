@@ -18,4 +18,12 @@ class EternalGoal : Goal
         Console.WriteLine("Congrats you complete an eternal goal!");
         Console.WriteLine($"You have completed this goal {_completionCounter} times, and earned {_goalPoints} points! Your total score is {_totalPoints} ");
     }
+
+    public override void DisplayGoal()
+    {
+        string checkbox = "[-]";
+
+        Console.WriteLine($"{checkbox} {_goalName} - {_goalDescription}");
+
+    }
 }

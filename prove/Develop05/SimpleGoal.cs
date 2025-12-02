@@ -23,4 +23,21 @@ class SimpleGoal : Goal
             Console.WriteLine("This goal is already complete.");
         }
     }
+
+    public override void DisplayGoal()
+    {
+        string checkbox;
+        if(_complete == true)
+        {
+            checkbox = "[X]";
+        }
+        else
+        {
+            checkbox = "[ ]";
+        }
+        
+
+        Console.WriteLine($"{checkbox} {_goalName} - {_goalDescription}");
+
+    }
 }

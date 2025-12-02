@@ -1,0 +1,4 @@
+class HealthyAgent : Agent
+{
+    
+}
