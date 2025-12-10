@@ -5,7 +5,7 @@ public class HealthyCircle : Circle
     {
     }
 
-    public void AvoidInfected()
+    public override void MovementBehavior()
     {
 
     }

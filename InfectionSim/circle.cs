@@ -41,6 +41,9 @@ public class Circle
         }
     }
 
+    // movement style vaires between infected and healthy
+    public virtual void MovementBehavior();
+
     // getters
     public int GetX() => _x;
     public int GetY() => _y;

@@ -6,7 +6,7 @@ public class InfectedCircle : Circle
 
     }
 
-    public void ErraticMovement()
+    public override void MovementBehavior()
     {
         
     }
