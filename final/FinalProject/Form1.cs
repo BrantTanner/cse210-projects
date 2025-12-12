@@ -3,75 +3,128 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-public partial class Form1 : Form
+namespace InfectionSim
+
 {
-    List<Circle> circles = new List<Circle>();
-    Random rand = new Random();
-
-    int circleCount = 50;
-    int circleSize = 20;
-
-    public Form1()
+    
+    public partial class Form1 : Form
     {
-        InitializeComponent();
-        this.DoubleBuffered = true; // smoother graphics
-        GenerateCircles();
-    }
+        // member variables
+        List<Circle> circles = new List<Circle>();
+        Random rand = new Random();
 
-    private void GenerateCircles()
-    {
-        circles.Clear();
+        int circleCount = 100;
+        int circleSize = 20;
+        
+        private SimulationTimer simTimer;
 
-        for (int i = 0; i < circleCount; i++)
+
+        public Form1() // constructor
         {
-            Circle c = new Circle();
-            c.Size = circleSize;
+            InitializeComponent();
+            this.DoubleBuffered = true; // smoother graphics
+            
+            // initialize timer
+            simTimer = new SimulationTimer(16); // 60 FPS
+            simTimer.Tick += UpdateSim; // subscribe to tick event
+            simTimer.Start();
+            
+            // Generate circles on screen
+            CircleGeneration cG = new CircleGeneration(circles, rand, circleCount, circleSize, this.ClientSize, this);
+            cG.GenerateCircles();
+            Invalidate();
+        }
 
-            bool valid = false;
+        
 
-            while (!valid)
+        private void UpdateSim(object? sender, EventArgs e)
+        {
+            // 1. Update movement of every circle
+            foreach (var c in circles)
             {
-                c.X = rand.Next(0, ClientSize.Width - c.Size);
-                c.Y = rand.Next(0, ClientSize.Height - c.Size);
+                c.Update(ClientSize.Width, ClientSize.Height);
+            }
 
-                valid = true;
+            // 2. Collision detection between all circle pairs
+            CollisionDetector detector = new CollisionDetector();
 
-                foreach (var other in circles)
+            for (int i = 0; i < circles.Count; i++)
+            {
+                for (int j = i + 1; j < circles.Count; j++)
                 {
-                    double dx = (c.X + c.Size / 2) - (other.X + other.Size / 2);
-                    double dy = (c.Y + c.Size / 2) - (other.Y + other.Size / 2);
-                    double distance = Math.Sqrt(dx * dx + dy * dy);
+                    var c1 = circles[i];
+                    var c2 = circles[j];
 
-                    if (distance < (c.Size + other.Size) / 2)
+                    detector.CheckCollision(c1, c2);
+
+                    if (detector.Collision)
                     {
-                        valid = false;
-                        break;
+                        // spread infection
+                        if (c1.GetInfected() || c2.GetInfected())
+                        {
+                            c1.SetInfected(true);
+                            c2.SetInfected(true);
+                        }
                     }
                 }
             }
 
-            circles.Add(c);
+            // 3. Redraw screen
+            Invalidate();
         }
 
-        circles[0].Infected = true; // first circle red
-        Invalidate();
-    }
 
-    protected override void OnPaint(PaintEventArgs e)
-    {
-        base.OnPaint(e);
-
-        foreach (var circle in circles)
+        // method that runs every time the form is redrawn
+        protected override void OnPaint(PaintEventArgs e)
         {
-            Brush b = circle.Infected ? Brushes.Red : Brushes.Green;
+            base.OnPaint(e);
 
-            e.Graphics.FillEllipse(
-                b,
-                circle.X,
-                circle.Y,
-                circle.Size,
-                circle.Size
-            );
+            float neighborRadius = 25f;
+            float neighborRadiusSq = neighborRadius * neighborRadius;
+
+            foreach (var circle in circles)
+            {
+                // Only healthy circles should avoid infected neighbors.
+                if (!circle.GetInfected())
+                {
+                    var infectedNearby = new List<Circle>();
+                    foreach (var other in circles)
+                    {
+                        if (other == circle) continue;
+
+                        float dx = circle.GetX() - other.GetX();
+                        float dy = circle.GetY() - other.GetY();
+                        float distSq = dx * dx + dy * dy;
+
+                        if (distSq <= neighborRadiusSq && other.GetInfected())
+                            infectedNearby.Add(other);
+                    }
+
+                    // let healthy circle react to nearby infected circles
+                    circle.MovementBehavior(infectedNearby);
+                }
+                else
+                {
+                    // infected circles use their own movement behavior (no avoidance list)
+                    circle.MovementBehavior(new List<Circle>());
+                }
+
+                // choose brush by infection state and draw 
+                Brush brush;
+                if (circle.GetInfected())
+                    brush = Brushes.Green;
+                else
+                    brush = Brushes.Red;
+
+                e.Graphics.FillEllipse(
+                    brush,
+                    circle.GetX(),
+                    circle.GetY(),
+                    circle.GetSize(),
+                    circle.GetSize()
+                );
+            }
         }
     }
 }
+

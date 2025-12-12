@@ -30,7 +30,7 @@ namespace InfectionSim
             simTimer.Start();
             
             // Generate circles on screen
-            CircleGeneration cG = new CircleGeneration(circles, rand, circleCount, circleSize, this.ClientSize);
+            CircleGeneration cG = new CircleGeneration(circles, rand, circleCount, circleSize, this.ClientSize, this);
             cG.GenerateCircles();
             Invalidate();
         }
@@ -39,41 +39,92 @@ namespace InfectionSim
 
         private void UpdateSim(object? sender, EventArgs e)
         {
+            // 1. Update movement of every circle
             foreach (var c in circles)
             {
                 c.Update(ClientSize.Width, ClientSize.Height);
             }
 
+            // 2. Collision detection between all circle pairs
+            CollisionDetector detector = new CollisionDetector();
+
+            for (int i = 0; i < circles.Count; i++)
+            {
+                for (int j = i + 1; j < circles.Count; j++)
+                {
+                    var c1 = circles[i];
+                    var c2 = circles[j];
+
+                    detector.CheckCollision(c1, c2);
+
+                    if (detector.Collision)
+                    {
+                        // spread infection
+                        if (c1.GetInfected() || c2.GetInfected())
+                        {
+                            c1.SetInfected(true);
+                            c2.SetInfected(true);
+                        }
+                    }
+                }
+            }
+
+            // 3. Redraw screen
             Invalidate();
         }
 
-        // method that runs evertime the form is redrawn
+
+        // method that runs every time the form is redrawn
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
 
-            // loop through list of circle objects
+            float neighborRadius = 25f;
+            float neighborRadiusSq = neighborRadius * neighborRadius;
+
             foreach (var circle in circles)
             {
-                Brush b;
-                
-                // Infected circles = green, Healthy + red
-                if(circle.GetInfected()){
-                    b = Brushes.Red;
+                // Only healthy circles should avoid infected neighbors.
+                if (!circle.GetInfected())
+                {
+                    var infectedNearby = new List<Circle>();
+                    foreach (var other in circles)
+                    {
+                        if (other == circle) continue;
+
+                        float dx = circle.GetX() - other.GetX();
+                        float dy = circle.GetY() - other.GetY();
+                        float distSq = dx * dx + dy * dy;
+
+                        if (distSq <= neighborRadiusSq && other.GetInfected())
+                            infectedNearby.Add(other);
+                    }
+
+                    // let healthy circle react to nearby infected circles
+                    circle.MovementBehavior(infectedNearby);
                 }
                 else
                 {
-                    b = Brushes.Green;
+                    // infected circles use their own movement behavior (no avoidance list)
+                    circle.MovementBehavior(new List<Circle>());
                 }
 
+                // choose brush by infection state and draw 
+                Brush brush;
+                if (circle.GetInfected())
+                    brush = Brushes.Green;
+                else
+                    brush = Brushes.Red;
+
                 e.Graphics.FillEllipse(
-                    b, // brush color
-                    circle.GetX(), // X position
-                    circle.GetY(), // Y position
-                    circle.GetSize(), // Width
-                    circle.GetSize() // Height (width and height are the same value to make a circle)
+                    brush,
+                    circle.GetX(),
+                    circle.GetY(),
+                    circle.GetSize(),
+                    circle.GetSize()
                 );
             }
         }
     }
 }
+
