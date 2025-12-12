@@ -8,6 +8,10 @@ public class Circle
     private float _dx;
     private float _dy;
 
+    //
+    MovementController _controller;
+    CollisionDetector _detect;
+
     public Circle(int size, bool infected = false)
     {
         _size = size;
@@ -16,29 +20,28 @@ public class Circle
         _y = 0;
         _dx = 0;
         _dy = 0;
+
+        _controller = new MovementController();
+        _detect = new CollisionDetector();
     }
 
-    // update movement and bounce logic
+    
     public virtual void Update(int windowWidth, int windowHeight)
     {
-        _x += (int)_dx;
-        _y += (int)_dy;
+        // update movement and bounce logic
+        _controller.ApplyMovement(this);
+        _controller.BounceOfWalls(this);
 
-        // bounce horizontally
-        if (_x < 0 || _x + _size > windowWidth)
+        // detect collisions and infect circles
+        _detect.CheckCollision(circle1, circle2);
+
+        if (_detect.Collision && circle1.infected || circle2.infected)
         {
-            _dx = -_dx;
-            if (_x < 0) _x = 0;
-            if (_x + _size > windowWidth) _x = windowWidth - _size;
+            circle1.infected = true;
+            circle2.infected = true;
+
         }
 
-        // bounce vertically
-        if (_y < 0 || _y + _size > windowHeight)
-        {
-            _dy = -_dy;
-            if (_y < 0) _y = 0;
-            if (_y + _size > windowHeight) _y = windowHeight - _size;
-        }
     }
 
     // movement style vaires between infected and healthy
@@ -53,6 +56,11 @@ public class Circle
     public float GetDY() => _dy;
 
     // setters
+    public void SetX(int x) => _x = x;
+    public void SetY(int y) => _y = y;
+    public void SetDX(int dx) => _dx = dx;
+    public void SetDY(int dy) => _dy = dy;
+
     public void SetPosition(int x, int y)
     {
         _x = x;
@@ -64,4 +72,6 @@ public class Circle
         _dx = dx;
         _dy = dy;
     }
+
+
 }

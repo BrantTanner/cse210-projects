@@ -57,7 +57,7 @@ namespace InfectionSim
             {
                 Brush b;
                 
-                // Infected circles are red and the others are green
+                // Infected circles = green, Healthy + red
                 if(circle.GetInfected()){
                     b = Brushes.Red;
                 }
