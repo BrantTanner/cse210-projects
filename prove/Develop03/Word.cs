@@ -6,7 +6,7 @@ public class Word
     private string _word;
     private bool _hidden = false;
 
-    // Constructors
+    // Constructor
     public Word(string word)
     {
         _word = word;
